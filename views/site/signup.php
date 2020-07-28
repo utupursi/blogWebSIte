@@ -10,6 +10,9 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile("@web/css/main.css", [
+    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
+]);
 ?>
 <div class="site-login">
   <h1><?= Html::encode($this->title) ?></h1>
@@ -26,9 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?= $form->field($model, 'firstName')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'lastName')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
     <?= $form->field($model, 'username', ['enableAjaxValidation' => true, 'validateOnType' => true])->textInput() ?>
-
+    <?= $form->field($model, 'city')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'country')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'address')->textInput(['autofocus' => true]) ?>
     <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'password_repeat')->passwordInput() ?>
 

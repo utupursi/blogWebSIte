@@ -1,48 +1,4 @@
-<?php use yii\helpers\Html;
-
-$this->registerCssFile("@web/css/open-iconic-bootstrap.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-
-$this->registerCssFile("@web/css/animate.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/owl.carousel.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/owl.theme.default.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/magnific-popup.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/aos.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/ionicons.min.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/bootstrap-datepicker.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/jquery.timepicker.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/flaticon.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-
-$this->registerCssFile("@web/css/icomoon.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/flaticon.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-$this->registerCssFile("@web/css/style.css", [
-    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
-]);
-
-?>
+<?php use yii\helpers\Html; ?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -106,96 +62,107 @@ $this->registerCssFile("@web/css/style.css", [
 </head>
 <body>
 
-<div class="header-top">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
-        <ul>
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-          <li><a href="#"><i class="fa fa-behance"></i></a></li>
-        </ul>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
-        <ul>
-          <li><a href="tel:+440 012 3654 896"><span class="lnr lnr-phone-handset"></span><span>+440 012 3654 896</span></a></li>
-          <li><a href="mailto:support@colorlib.com"><span class="lnr lnr-envelope"></span><span>support@colorlib.com</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="site-main-container" style="margin-top:90px">
   <!-- Start top-post Area -->
   <section class="top-post-area pt-10">
     <div class="container no-padding">
-      <div class="row small-gutters">
-        <div class="col-lg-8 top-post-left">
-          <div class="feature-image-thumb relative">
-            <div class="overlay overlay-bg"></div>
-            <img class="img-fluid" src="img/top-post1.jpg" alt="">
-          </div>
-          <div class="top-post-details">
-            <ul class="tags">
-              <li><a href="#">Food Habit</a></li>
-            </ul>
-            <a href="image-post.html">
-              <h3>A Discount Toner Cartridge Is Better Than Ever.</h3>
-            </a>
-            <ul class="meta">
-              <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-              <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-              <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-4 top-post-right">
-          <div class="single-top-post">
-            <div class="feature-image-thumb relative">
-              <div class="overlay overlay-bg"></div>
-              <img class="img-fluid" src="img/top-post2.jpg" alt="">
+        <?php if ($mostViewedBlogs): ?>
+          <div class="row small-gutters">
+            <div class="col-lg-8 top-post-left">
+              <div class="feature-image-thumb relative">
+                <div class="overlay overlay-bg"></div>
+                  <?php if ($mostViewedBlogs[0]->image != ''): ?>
+                      <?php $image = $mostViewedBlogs[0]->image; ?>
+                  <?php else: ?>
+                      <?php $image = 'no-image.jpg' ?>
+                  <?php endif; ?>
+                  <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
+
+              </div>
+              <div class="top-post-details">
+                <ul class="tags">
+                  <li><a href="#">Food Habit</a></li>
+                </ul>
+                <a href='blog-details?id=<?php echo $mostViewedBlogs[0]->id ?>'>
+                  <h3><?php echo $mostViewedBlogs[0]->header ?></h3>
+                </a>
+                <ul class="meta">
+                  <li><a href="#"><span
+                        class="lnr lnr-user"></span><?php echo $mostViewedBlogs[0]->createdBy->username ?></a>
+                  </li>
+                  <li><a href="#"><span
+                        class="lnr lnr-calendar-full"></span>><?php echo Yii::$app->formatter->asDate($mostViewedBlogs[0]->created_at) ?>
+                      /a></li>
+                  <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+                </ul>
+              </div>
             </div>
-            <div class="top-post-details">
-              <ul class="tags">
-                <li><a href="#">Food Habit</a></li>
-              </ul>
-              <a href="image-post.html">
-                <h4>A Discount Toner Cartridge Is Better Than Ever.</h4>
-              </a>
-              <ul class="meta">
-                <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-                <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-              </ul>
+            <div class="col-lg-4 top-post-right">
+              <div class="single-top-post">
+                <div class="feature-image-thumb relative">
+                  <div class="overlay overlay-bg"></div>
+                    <?php if ($mostViewedBlogs[1]->image != ''): ?>
+                        <?php $image = $mostViewedBlogs[1]->image; ?>
+                    <?php else: ?>
+                        <?php $image = 'no-image.jpg' ?>
+                    <?php endif; ?>
+                    <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
+                </div>
+                <div class="top-post-details">
+                  <ul class="tags">
+                    <li><a href="#">Food Habit</a></li>
+                  </ul>
+                  <a href='blog-details?id=<?php echo $mostViewedBlogs[1]->id ?>'>
+                    <h4><?php echo $mostViewedBlogs[1]->header ?></h4>
+                  </a>
+                  <ul class="meta">
+                    <li><a href="#"><span
+                          class="lnr lnr-user"></span><?php echo $mostViewedBlogs[1]->createdBy->username ?>
+                      </a></li>
+                    <li><a href="#"><span
+                          class="lnr lnr-calendar-full"></span><?php echo Yii::$app->formatter->asDate($mostViewedBlogs[1]->created_at) ?>
+                      </a></li>
+                    <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="single-top-post mt-10">
+                <div class="feature-image-thumb relative">
+                  <div class="overlay overlay-bg"></div>
+                    <?php if ($mostViewedBlogs[2]->image != ''): ?>
+                        <?php $image = $mostViewedBlogs[2]->image; ?>
+                    <?php else: ?>
+                        <?php $image = 'no-image.jpg' ?>
+                    <?php endif; ?>
+                    <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
+
+                </div>
+                <div class="top-post-details">
+                  <ul class="tags">
+                    <li><a href="#">Food Habit</a></li>
+                  </ul>
+                  <a href="blog-details?id=<?php echo $mostViewedBlogs[2]->id ?>">
+                    <h4><?php echo $mostViewedBlogs[2]->header ?></h4>
+                  </a>
+                  <ul class="meta">
+                    <li><a href="#"><span
+                          class="lnr lnr-user"></span><?php echo $mostViewedBlogs[2]->createdBy->username ?>
+                      </a></li>
+                    <li><a href="#"><span
+                          class="lnr lnr-calendar-full"></span><?php echo Yii::$app->formatter->asDate($mostViewedBlogs[2]->created_at) ?>
+                      </a></li>
+                    <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="news-tracker-wrap">
+                <h6><span>Breaking News:</span> <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+              </div>
             </div>
           </div>
-          <div class="single-top-post mt-10">
-            <div class="feature-image-thumb relative">
-              <div class="overlay overlay-bg"></div>
-              <img class="img-fluid" src="img/top-post3.jpg" alt="">
-            </div>
-            <div class="top-post-details">
-              <ul class="tags">
-                <li><a href="#">Food Habit</a></li>
-              </ul>
-              <a href="image-post.html">
-                <h4>A Discount Toner Cartridge Is Better</h4>
-              </a>
-              <ul class="meta">
-                <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-                <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="news-tracker-wrap">
-            <h6><span>Breaking News:</span> <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
-          </div>
-        </div>
-      </div>
+        <?php endif; ?>
     </div>
   </section>
   <!-- End top-post Area -->
@@ -212,24 +179,40 @@ $this->registerCssFile("@web/css/style.css", [
                   <div class="col-lg-5 post-left">
                     <div class="feature-img relative">
                       <div class="overlay overlay-bg"></div>
-                        <?php echo Html::img('@web/Files/' . $blog->image, ['id' => 'image']); ?>
+                        <?php if ($blog->image): ?>
+                            <?php $image = $blog->image; ?>
+                        <?php else: ?>
+                            <?php $image = 'no-image.jpg' ?>
+                        <?php endif; ?>
+                        <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
                     </div>
                     <ul class="tags">
                       <li><a href="#">Lifestyle</a></li>
                     </ul>
                   </div>
                   <div class="col-lg-7 post-right">
-                    <a href="blog-details?id=<?php echo $blog->id ?> ">
+                    <a href="/blog/blog-details?id=<?php echo $blog->id ?> ">
                       <h4><?php echo $blog->header ?></h4>
                     </a>
                     <ul class="meta">
-                      <li><a href="#"><span class="lnr lnr-user"></span><?php echo $blog->createdBy->username ?></a>
+                      <li><a href="#"><span
+                            class="lnr lnr-user"></span><?php echo $blog->createdBy->username ?>
+                        </a>
                       </li>
-                      <li><a href=" #"><span class="lnr lnr-calendar-full"></span><?php echo $blog->created_at ?></a>
+
+                      <li><a href=" #"><span
+                            class="lnr lnr-calendar-full"></span><?php echo Yii::$app->formatter->asDate($blog->created_at) ?>
+                        </a>
+                      </li>
+
+                      </li>
+                      <li><a href=" #"><span class="lnr lnr-eye"></span><?php echo $blog['views'] ?>
+                        </a>
                       </li>
                     </ul>
                     <p class="excert">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                      incididunt.
                     </p>
                   </div>
                 </div>
@@ -282,11 +265,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt ed do
+                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor
+                    incididunt ed do
                     eius.
                   </p>
                 </div>
@@ -308,11 +293,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt ed do
+                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor
+                    incididunt ed do
                     eius.
                   </p>
                 </div>
@@ -341,11 +328,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt.
                   </p>
                 </div>
               </div>
@@ -366,11 +355,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt.
                   </p>
                 </div>
               </div>
@@ -391,11 +382,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                    incididunt.
                   </p>
                 </div>
               </div>
@@ -424,11 +417,13 @@ $this->registerCssFile("@web/css/style.css", [
                   </a>
                   <ul class="meta">
                     <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li>
                   </ul>
                   <p class="excert">
-                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor incididunt ed do
+                    Lorem ipsum dolor sit amet, consecteturadip isicing elit, sed do eiusmod tempor
+                    incididunt ed do
                     eius.
                   </p>
                 </div>
@@ -441,7 +436,8 @@ $this->registerCssFile("@web/css/style.css", [
                       <a href="image-post.html"><h6>Help Finding Information
                           Online is so easy</h6></a>
                       <ul class="meta">
-                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
+                            2018</a></li>
                         <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                       </ul>
                     </div>
@@ -454,7 +450,8 @@ $this->registerCssFile("@web/css/style.css", [
                       <a href="image-post.html"><h6>Compatible Inkjet Cartr
                           world famous</h6></a>
                       <ul class="meta">
-                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
+                            2018</a></li>
                         <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                       </ul>
                     </div>
@@ -467,7 +464,8 @@ $this->registerCssFile("@web/css/style.css", [
                       <a href="image-post.html"><h6>5 Tips For Offshore Soft
                           Development </h6></a>
                       <ul class="meta">
-                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                        <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April,
+                            2018</a></li>
                         <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                       </ul>
                     </div>
@@ -488,7 +486,8 @@ $this->registerCssFile("@web/css/style.css", [
               <div class="form-group d-flex flex-row">
                 <div class="col-autos">
                   <div class="input-group">
-                    <input class="form-control" placeholder="Email Address" onfocus="this.placeholder = ''"
+                    <input class="form-control" placeholder="Email Address"
+                           onfocus="this.placeholder = ''"
                            onblur="this.placeholder = 'Email Address'" type="text">
                   </div>
                 </div>
@@ -510,7 +509,8 @@ $this->registerCssFile("@web/css/style.css", [
                       Online is so easy</h6>
                   </a>
                   <ul class="meta">
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                   </ul>
                 </div>
@@ -525,7 +525,8 @@ $this->registerCssFile("@web/css/style.css", [
                       world famous</h6>
                   </a>
                   <ul class="meta">
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                   </ul>
                 </div>
@@ -540,7 +541,8 @@ $this->registerCssFile("@web/css/style.css", [
                       Development </h6>
                   </a>
                   <ul class="meta">
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                   </ul>
                 </div>
@@ -555,7 +557,8 @@ $this->registerCssFile("@web/css/style.css", [
                       Development </h6>
                   </a>
                   <ul class="meta">
-                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
+                    <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a>
+                    </li>
                     <li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
                   </ul>
                 </div>

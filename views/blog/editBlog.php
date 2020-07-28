@@ -5,28 +5,14 @@ use yii\helpers\Html; ?>
 
 
 <style>
-  #p {
-    margin-top: 10px;
-  }
 
-  #k {
-    font-size: 20px;
-  }
 
-  body {
-    /* background-image: url("https://i.ytimg.com/vi/jkEL-9TlN8Y/maxresdefault.jpg"); */
-    background-size: 100%;
-  }
-
-  #field1 {
-    width: 300px;
-    /* border:1px solid whitesmoke; */
-  }
 </style>
+<?php $this->registerCssFile("@web/css/main.css", [
+    'depends' => [\yii\bootstrap\BootstrapAsset::className()],
+]); ?>
 <!DOCTYPE html>
 <head>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -54,10 +40,9 @@ use yii\helpers\Html; ?>
         <?= $form->field($model, 'image')->fileInput(['maxFileSize' => 5120 * 10]) ?>
     </div>
     <div class="form-group">
-        <?= $form->field($model, 'text')->textarea(['id' => 'summernote', 'value' => $model->text]) ?>
+        <?= $form->field($model, 'text')->widget(\froala\froalaeditor\FroalaEditorWidget::class, ['model' => $model,]) ?>
     </div>
     <div class="form-group">
-      <label for="field1">Video Link</label>
         <?= $form->field($model, 'link')->textInput(['placeholder' => 'https://www.youtube.com/watch?v=ITKBiGhwwLo', 'value' => $model->link]) ?>
     </div>
     <div class="form-group">
@@ -67,14 +52,7 @@ use yii\helpers\Html; ?>
   </div>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js" defer></script>
-<script>
-  $(document).ready(function () {
-    $('#summernote').summernote();
-  });
-</script>
+
 
 </body>
 

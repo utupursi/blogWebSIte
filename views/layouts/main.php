@@ -33,65 +33,47 @@ AppAsset::register($this);
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
         <ul>
-          <li><a href="#"><h4>My application</h4></a></li>
+          <li><a href="/blog/latest-blogs"><h4 style="color:blue">My application</h4></a></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
         <ul>
-            <?php if(Yii::$app->user->isGuest):?>
+            <?php if (Yii::$app->user->isGuest): ?>
               <li><a href="/site/signup"><span class="lnr lnr-phone-handset"></span><span>SignUp</span></a></li>
-            <?php endif;?>
-          <li><a href="mailto:support@colorlib.com"><span class="lnr lnr-envelope"></span><span>support@colorlib.com</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="wrap">
+            <?php endif; ?>
+            <?php if (!Yii::$app->user->isGuest): ?>
+              <li><a href="/blog/create"><span class="lnr lnr-phone-handset"></span><span>Write Blog</span></a></li>
+            <?php endif; ?>
+            <?php if (!Yii::$app->user->isGuest): ?>
+              <li><a href="/blog/view-user-blog"><span class="lnr lnr-phone-handset"></span><span>My Blogs</span></a>
+              </li>
+            <?php endif; ?>
+            <?php if (Yii::$app->user->isGuest): ?>
+              <li><a href="/site/login"><span class="lnr lnr-phone-handset"></span><span>Login</span></a></li>
+            <?php endif; ?>
 
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => ['/blog/blog'],
-        'options' => [
-            'class' => 'navbar navbar-fixed-top',
-        ],
-    ]);
+            <?php if (!Yii::$app->user->isGuest): ?>
+              <li><a href="/site/update-user"><span class="lnr lnr-phone-handset"></span><span>Edit Profile(<?php echo Yii::$app->user->identity->username?>)</span></a>
+              </li>
+            <?php endif; ?>
 
-    echo Nav::widget([
-        'options' => ['class' => 'navbar navbar-right'],
-        'items' => [
-
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Signup', 'url' => ['/site/signup']]
-            ) : "",
-            !Yii::$app->user->isGuest ? (
-            ['label' => 'CreateBlog', 'url' => ['/blog/create']]
-            ) : "",
-            !Yii::$app->user->isGuest ? (
-            ['label' => 'View My Blogs', 'url' => ['/blog/view-user-blog']]
-            ) : "",
-
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
-
-            ) : (
-                '<li>'
+            <?php if (!Yii::$app->user->isGuest) {
+              echo   '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
-            ),
-
-
-        ],
-
-    ]);
-    NavBar::end();
-    ?>
+                . '
+              </li>';
+            }
+            ?>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div class="container">
 
@@ -101,7 +83,7 @@ AppAsset::register($this);
       <?= Alert::widget() ?>
       <?= $content ?>
   </div>
-</div >
+</div>
 
 <footer class="footer">
 

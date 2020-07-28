@@ -116,7 +116,9 @@ class Blog extends \yii\db\ActiveRecord
         if ($blog->views == null) {
             $blog->views = 1;
         } else {
-            $blog->views = $blog->views + 1;
+            if ($blog->created_by !== Yii::$app->user->id) {
+                $blog->views = $blog->views + 1;
+            }
         }
         if (!$blog->save()) {
             throw new ServerErrorHttpException('can not update');

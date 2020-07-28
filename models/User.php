@@ -17,6 +17,9 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $authKey
  * @property string $access_token
+ * @property string $email
+ * @property string $image
+ * @property UserAddress userAddress
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -34,12 +37,20 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['firstName', 'lastName', 'username', 'password', 'authKey', 'access_token'], 'required'],
+            [['firstName', 'lastName', 'username', 'password', 'authKey', 'access_token','email'], 'required'],
             [['id'], 'integer'],
             [['firstName'], 'string', 'max' => 55],
-            [['lastName', 'username'], 'string', 'max' => 25],
+            [['lastName', 'username','email','image'], 'string', 'max' => 25],
             [['password', 'authKey', 'access_token'], 'string', 'max' => 255],
             [['id'], 'unique'],
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'email'],
+            [
+                'email',
+                'unique',
+                'targetClass' => User::className(),
+                'message' =>  'This email address has already been taken'
+            ],
         ];
     }
 
@@ -116,4 +127,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return Yii::$app->security->validatePassword($password,$this->password);
     }
+
+    public function getUserAddress()
+    {
+        return $this->hasOne(UserAddress::className(), ['user_id' => 'id']);
+    }
 }
+

@@ -7,11 +7,14 @@ use app\models\Question;
 use app\models\Quiz;
 use app\models\QuizSearch;
 use app\models\SignupForm;
+use app\models\User;
+use app\models\UserAddress;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -223,7 +226,7 @@ class SiteController extends Controller
     {
         $model = new Blogs();
         if ($model->load(Yii::$app->request->post())) {
-            $imageName = rand(1, 100000);
+            $imageName = Yii::$app->security->generateRandomString(20);
             $model->file = UploadedFile::getInstance($model, 'file');
             $path = Yii::getAlias('@webroot') . '/Files/';
             $model->file->saveAs($path . $imageName . '.' . $model->file->extension);
@@ -236,4 +239,20 @@ class SiteController extends Controller
         }
 
     }
+
+    public function actionUpdateUser()
+    {
+        $model = User::find()->where(['id' => Yii::$app->user->id])->one();
+        if ($model->load(Yii::$app->request->post()) && $model->userAddress->load(Yii::$app->request->post())) {
+            $username = $model->username;
+            if (!$model->userAddress->save() || !$model->save()) {
+                throw new ServerErrorHttpException('can not save');
+            }
+            Yii::$app->user->identity->username = $username;
+        }
+        return $this->render('../user/userDetails', [
+            'model' => $model,
+        ]);
+    }
+
 }
