@@ -83,7 +83,7 @@
                 <ul class="tags">
                   <li><a href="#">Food Habit</a></li>
                 </ul>
-                <a href='blog-details?id=<?php echo $mostViewedBlogs[0]->id ?>'>
+                <a href='blog/blog-details?id=<?php echo $mostViewedBlogs[0]->id ?>'>
                   <h3><?php echo $mostViewedBlogs[0]->header ?></h3>
                 </a>
                 <ul class="meta">
@@ -112,7 +112,7 @@
                   <ul class="tags">
                     <li><a href="#">Food Habit</a></li>
                   </ul>
-                  <a href='blog-details?id=<?php echo $mostViewedBlogs[1]->id ?>'>
+                  <a href='blog/blog-details?id=<?php echo $mostViewedBlogs[1]->id ?>'>
                     <h4><?php echo $mostViewedBlogs[1]->header ?></h4>
                   </a>
                   <ul class="meta">
@@ -141,7 +141,7 @@
                   <ul class="tags">
                     <li><a href="#">Food Habit</a></li>
                   </ul>
-                  <a href="blog-details?id=<?php echo $mostViewedBlogs[2]->id ?>">
+                  <a href="blog/blog-details?id=<?php echo $mostViewedBlogs[2]->id ?>">
                     <h4><?php echo $mostViewedBlogs[2]->header ?></h4>
                   </a>
                   <ul class="meta">

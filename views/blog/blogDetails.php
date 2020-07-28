@@ -105,7 +105,12 @@
               <div class="active-gallery-carusel">
                 <div class="single-img relative">
                   <div class="overlay overlay-bg"></div>
-                    <?php echo Html::img('@web/Files/' . $blog->image, ['id' => 'image']); ?>
+                    <?php if ($blog->image != ''): ?>
+                        <?php $image = $blog->image; ?>
+                    <?php else: ?>
+                        <?php $image = 'no-image.jpg' ?>
+                    <?php endif; ?>
+                    <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
                 </div>
                 <div class="single-img relative">
                   <div class="overlay overlay-bg"></div>

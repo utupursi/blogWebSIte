@@ -88,7 +88,7 @@ class BlogController extends Controller
                 if ($model->imageFile) {
                     $model->imageFile->saveAs($path . $model->imageFile->baseName . '.' . $model->imageFile->extension);
                 }
-                return $this->redirect(['blog']);
+                return $this->redirect(['/']);
             }
 
             throw new ServerErrorHttpException('can not save');
@@ -128,7 +128,7 @@ class BlogController extends Controller
                     if ($model->imageFile) {
                         $model->imageFile->saveAs($path . $model->imageFile->baseName . '.' . $model->imageFile->extension);
                     }
-                    return $this->redirect(['latest-blogs']);
+                    return $this->redirect(['/']);
                 }
                 return $this->render('editBlog', [
                     'model' => $model

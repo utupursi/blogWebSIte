@@ -33,7 +33,7 @@ AppAsset::register($this);
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
         <ul>
-          <li><a href="/blog/latest-blogs"><h4 style="color:blue">My application</h4></a></li>
+          <li><a href="/"><h4 style="color:blue">My application</h4></a></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
@@ -53,19 +53,20 @@ AppAsset::register($this);
             <?php endif; ?>
 
             <?php if (!Yii::$app->user->isGuest): ?>
-              <li><a href="/site/update-user"><span class="lnr lnr-phone-handset"></span><span>Edit Profile(<?php echo Yii::$app->user->identity->username?>)</span></a>
+              <li><a href="/site/update-user"><span
+                    class="lnr lnr-phone-handset"></span><span>Edit Profile(<?php echo Yii::$app->user->identity->username ?>)</span></a>
               </li>
             <?php endif; ?>
 
             <?php if (!Yii::$app->user->isGuest) {
-              echo   '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '
+                echo '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '
               </li>';
             }
             ?>
@@ -75,14 +76,14 @@ AppAsset::register($this);
   </div>
 </div>
 
-  <div class="container">
+<div class="container">
 
-      <?= Breadcrumbs::widget([
-          'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-      ]) ?>
-      <?= Alert::widget() ?>
-      <?= $content ?>
-  </div>
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert::widget() ?>
+    <?= $content ?>
+</div>
 </div>
 
 <footer class="footer">
