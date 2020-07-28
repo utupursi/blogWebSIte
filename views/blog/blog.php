@@ -174,49 +174,51 @@
           <!-- Start latest-post Area -->
           <div class="latest-post-wrap">
             <h4 class="cat-title">Latest News</h4>
-              <?php foreach ($blogs as $blog): ?>
-                <div class="single-latest-post row align-items-center">
-                  <div class="col-lg-5 post-left">
-                    <div class="feature-img relative">
-                      <div class="overlay overlay-bg"></div>
-                        <?php if ($blog->image): ?>
-                            <?php $image = $blog->image; ?>
-                        <?php else: ?>
-                            <?php $image = 'no-image.jpg' ?>
-                        <?php endif; ?>
-                        <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
+              <?php if ($blogs): ?>
+                  <?php foreach ($blogs as $blog): ?>
+                  <div class="single-latest-post row align-items-center">
+                    <div class="col-lg-5 post-left">
+                      <div class="feature-img relative">
+                        <div class="overlay overlay-bg"></div>
+                          <?php if ($blog->image): ?>
+                              <?php $image = $blog->image; ?>
+                          <?php else: ?>
+                              <?php $image = 'no-image.jpg' ?>
+                          <?php endif; ?>
+                          <?php echo Html::img('@web/Files/' . $image, ['id' => 'image']); ?>
+                      </div>
+                      <ul class="tags">
+                        <li><a href="#">Lifestyle</a></li>
+                      </ul>
                     </div>
-                    <ul class="tags">
-                      <li><a href="#">Lifestyle</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-7 post-right">
-                    <a href="/blog/blog-details?id=<?php echo $blog->id ?> ">
-                      <h4><?php echo $blog->header ?></h4>
-                    </a>
-                    <ul class="meta">
-                      <li><a href="#"><span
-                            class="lnr lnr-user"></span><?php echo $blog->createdBy->username ?>
-                        </a>
-                      </li>
+                    <div class="col-lg-7 post-right">
+                      <a href="/blog/blog-details?id=<?php echo $blog->id ?> ">
+                        <h4><?php echo $blog->header ?></h4>
+                      </a>
+                      <ul class="meta">
+                        <li><a href="#"><span
+                              class="lnr lnr-user"></span><?php echo $blog->createdBy->username ?>
+                          </a>
+                        </li>
 
-                      <li><a href=" #"><span
-                            class="lnr lnr-calendar-full"></span><?php echo Yii::$app->formatter->asDate($blog->created_at) ?>
-                        </a>
-                      </li>
+                        <li><a href=" #"><span
+                              class="lnr lnr-calendar-full"></span><?php echo Yii::$app->formatter->asDate($blog->created_at) ?>
+                          </a>
+                        </li>
 
-                      </li>
-                      <li><a href=" #"><span class="lnr lnr-eye"></span><?php echo $blog['views'] ?>
-                        </a>
-                      </li>
-                    </ul>
-                    <p class="excert">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                      incididunt.
-                    </p>
+                        </li>
+                        <li><a href=" #"><span class="lnr lnr-eye"></span><?php echo $blog['views'] ?>
+                          </a>
+                        </li>
+                      </ul>
+                      <p class="excert">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                        incididunt.
+                      </p>
+                    </div>
                   </div>
-                </div>
-              <?php endforeach; ?>
+                  <?php endforeach; ?>
+              <?php endif; ?>
           </div>
           <!-- End latest-post Area -->
 
